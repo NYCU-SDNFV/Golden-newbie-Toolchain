@@ -1,0 +1,17 @@
+# --- Lab 0 ---
+__pycache__/
+*.pyc
+*.log
+.env
+result.json
+release-body.md
+
+# --- 由 Golden-Base 帶入 ---
+*.pcap
+*.tmp
+.DS_Store
+.venv/
+node_modules/
+*.pem
+id_rsa*
+*.solution.*

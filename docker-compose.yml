@@ -1,0 +1,38 @@
+# Lab 0 -- YOU MUST EDIT THIS FILE.
+#
+# As shipped, this service starts and then immediately dies, cannot run Mininet,
+# and cannot see this repository. Four things are missing. Fix all four.
+#
+# Read the error output of `make up` and `make test` before guessing. The tests
+# tell you exactly what they expect; `docs` links are in README section 3.
+
+services:
+  lab0:
+    build: .
+
+    # TODO 1 -- Naming.
+    #   Every test runs `docker exec <name> ...`. Find the name the tests use
+    #   (grep for CONTAINER in tests/lib.sh) and make this container use it.
+
+    # TODO 2 -- Privileges.
+    #   Mininet creates network namespaces and veth pairs, and OVS writes to
+    #   /var/run. A default container is not allowed to do any of that.
+    #   Give this container what it needs. There is a blunt one-line answer
+    #   and a more surgical one. Both are accepted; be ready to explain in
+    #   Lab 1 which you chose and why.
+    #
+    #   If you go surgical: capabilities are only half the story. Docker also
+    #   applies an AppArmor profile that blocks the mount calls Mininet makes,
+    #   no matter which capabilities you add -- so cap_add alone is not enough
+    #   on the autograder (your laptop may have no AppArmor, which is why it
+    #   can pass locally and hang there). See README section 5, point 3.
+
+    # TODO 3 -- Visibility.
+    #   The tests run /workspace/topo/lab0_topo.py *inside* the container.
+    #   Right now the container has no idea this repository exists. Mount the
+    #   project directory at /workspace.
+
+    # TODO 4 -- Lifetime.
+    #   `docker compose ps` will show this container as Exited. The image's
+    #   CMD is `sleep infinity`, so think about what else makes a container
+    #   stop early, and keep it alive.

@@ -147,8 +147,12 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
 
 def latest_metadata(current):
     validate_metadata(current)
-    url = f"https://raw.githubusercontent.com/{current['template']}/main/{MARKER}"
-    request = urllib.request.Request(url, headers={"Accept": "application/json", "User-Agent": "Lab0-upgrade/1"})
+    # Branch URLs can remain cached after a release; each freshness check needs a new cache key.
+    url = (f"https://raw.githubusercontent.com/{current['template']}/main/{MARKER}"
+           f"?lab0_check={uuid.uuid4().hex}")
+    request = urllib.request.Request(url, headers={
+        "Accept": "application/json", "User-Agent": "Lab0-upgrade/1", "Cache-Control": "no-cache",
+    })
     try:
         with urllib.request.build_opener(_NoRedirect).open(request, timeout=NETWORK_TIMEOUT) as response:
             raw = response.read(MAX_METADATA_BYTES + 1)

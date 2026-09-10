@@ -181,7 +181,9 @@ def check_freshness(repo):
         raise UpgradeError(
             f"Lab0 {current['version']} is too old; {latest['minimum_version']} or newer is required "
             f"(latest {latest['version']}). Commit or stash your work, then run make update. "
-            "Merge the resulting instructor/update branch before retrying make test."
+            "Merge the resulting instructor/update branch before retrying make test. "
+            "Then push your classroom default branch to resubmit; a local update alone "
+            "does not update the submitted code."
         )
     if version_tuple(current["version"]) < version_tuple(latest["version"]):
         print(f"Lab0 {current['version']} is supported; optional update {latest['version']} is available via make update.")

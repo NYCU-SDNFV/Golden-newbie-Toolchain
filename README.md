@@ -49,8 +49,8 @@ nothing.
 
 **Protected-file integrity is a whole-lab gate:** any mismatch yields **0/100**,
 not merely a loss of 5 or 10 policy points. An obsolete protected starter revision
-can also trigger this gate. Merge the instructor's update PR or run `make update`
-and merge its update branch; do not edit the protected files or their hashes.
+can also trigger this gate. Run `make update` and merge its local update branch;
+do not edit the protected files or their hashes.
 
 ## 3. How to work
 
@@ -71,6 +71,11 @@ the same integrity policy and lab checks, with a notice that remote freshness is
 online check; official grading still enforces canonical files and metadata.
 
 ### Keep your lab up to date
+
+Updates are **manual**: publication does not open update PRs, send proactive
+update notifications, or rewrite accepted repositories. Run `make check-update`
+regularly and before submitting; do not wait for an instructor update PR.
+If an older integrity diagnostic mentions a PR, use its `make update` alternative.
 
 Install Python 3 on your host as well as Git, Make, and Docker. `make test`
 first checks the public template's latest release. A required update

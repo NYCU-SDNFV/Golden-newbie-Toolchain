@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "channel": "newbie",
-  "version": "0.1.4",
-  "tag": "newbie-v0.1.4",
+  "version": "0.1.5",
+  "tag": "newbie-v0.1.5",
   "template": "NYCU-SDNFV/Golden-newbie-Toolchain",
-  "source_sha": "dee38123c1950ac0274cbac725f7d61c04dba11e",
-  "minimum_version": "0.1.4"
+  "source_sha": "88a0af414b9ae5c261a847a77f97ac7e7d0399f4",
+  "minimum_version": "0.1.5"
 }

@@ -4,9 +4,20 @@
 COMPOSE   ?= docker compose
 CONTAINER ?= lab0
 
-.PHONY: all build up test test-offline policy check-update update shell logs clean
+.PHONY: all help pretest build up test test-offline policy check-update update shell logs clean
 
 all: up test
+
+help:
+	@echo "make pretest       diagnose Docker engine host prerequisites (non-scoring)"
+	@echo "make up            build and start the supplied Lab 0 environment"
+	@echo "make test          check release freshness, policy, and all Lab 0 checks"
+	@echo "make test-offline  run policy and Lab 0 checks without a freshness claim"
+	@echo "make check-update  compare your starter with the required release"
+	@echo "make update        prepare a lossless instructor/update-<tag> branch"
+
+pretest:
+	@python3 -B .github/golden/pretest.py
 
 build:
 	$(COMPOSE) build

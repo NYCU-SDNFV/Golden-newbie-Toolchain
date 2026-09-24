@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "name": "Toolchain",
+  "lab": 0,
+  "assignment": "lab0-toolchain",
+  "checks": 8,
+  "environment": "toolchain"
+}

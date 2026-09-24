@@ -54,6 +54,26 @@ do not edit the protected files or their hashes.
 
 ## 3. How to work
 
+Use a Linux VM that you administer as the **Docker engine host**. In the course
+environment this means the assigned lab VM, not the Proxmox/PVE hypervisor.
+This lab uses the OVS userspace datapath and does not require an OVS kernel
+module or BBR, but the Docker engine still needs the shared course resource
+limits.
+
+Run the non-scoring preflight before starting the lab:
+
+```bash
+make check-update
+make pretest
+```
+
+`make pretest` only diagnoses the current Docker engine; it is deliberately
+separate from `make test`. If it reports that host preparation is required,
+follow the exact repair and persistence instructions in the generated
+[Golden runtime guide](.github/golden/README.md). Do not run host preparation
+on PVE or on any shared/remote Docker engine without its administrator's
+authorization.
+
 ```bash
 make build      # build the image
 make up         # start the container
@@ -77,8 +97,8 @@ update notifications, or rewrite accepted repositories. Run `make check-update`
 regularly and before submitting; do not wait for an instructor update PR.
 If an older integrity diagnostic mentions a PR, use its `make update` alternative.
 
-Install Python 3 on your host as well as Git, Make, and Docker. `make test`
-first checks the public template's latest release. A required update
+Install Python 3 on the Docker engine VM as well as Git, Make, and Docker.
+`make test` first checks the public template's latest release. A required update
 stops the command; a newer optional release only prints a notice. If the network
 or release metadata cannot be read, the check fails explicitly: fix the connection
 and retry `make check-update`, rather than assuming the checkout is current.
@@ -131,12 +151,12 @@ them:
 1. **Mininet needs privileges that a default container does not have.** It creates
    network namespaces and `veth` pairs. Read the error message you get before you
    start guessing — it tells you what is missing.
-2. **We use the OVS *userspace* datapath, not the kernel one.** The autograder runs
-   on a GitHub-hosted machine where the `openvswitch` kernel module is not
-   available, so a kernel-datapath bridge cannot be created there. `lab0_topo.py`
-   already asks for the userspace datapath; do not "fix" it back to kernel just
-   because it works on your own laptop. Ask yourself what that difference costs
-   in performance — you will measure exactly that in Lab 1.
+2. **We use the OVS *userspace* datapath, not the kernel one.** This keeps the
+   exercise independent of host kernel modules and gives the same forwarding
+   model on the supported Docker engine VMs and the autograder. `lab0_topo.py`
+   already requests the userspace datapath; do not "fix" it back to kernel just
+   because a kernel datapath is available on your machine. Ask yourself what
+   that difference costs in performance — you will measure it in a later lab.
 
 3. **"Works on my laptop" is not the same as "works on the autograder."** If you take
    the surgical `cap_add` route in TODO 2, remember that Linux has *two* independent
